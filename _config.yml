@@ -1,0 +1,17 @@
+title: Sanjay Parajuli
+description: Notes on software & engineering — Python, web development, open source, and building things on the internet.
+url: "https://parajulisanjay.com.np"
+baseurl: ""
+
+author:
+  name: Sanjay Parajuli
+  bio: Software developer based in Kathmandu. Writing about Python, web development, and open source.
+
+permalink: /posts/:slug/
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+markdown: kramdown
+highlighter: rouge
