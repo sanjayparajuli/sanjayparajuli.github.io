@@ -1,0 +1,66 @@
+---
+layout: default
+title: Blog
+---
+
+<section class="hero">
+  <h1>Notes on software &amp; engineering</h1>
+  <p>Thoughts on Python, web development, open source, and building things on the internet.</p>
+</section>
+
+{% if site.posts.size > 0 %}
+  <p class="section-label">Latest posts</p>
+
+  {% assign featured = site.posts.first %}
+  <a href="{{ featured.url | relative_url }}" class="featured-card">
+    <div class="featured-thumb">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" width="48" height="48">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
+      </svg>
+    </div>
+    <div class="featured-body">
+      {% if featured.tags.size > 0 %}
+        <span class="tag tag-{{ featured.tags[0] | downcase | replace: ' ', '-' }}">{{ featured.tags[0] }}</span>
+      {% endif %}
+      <h2>{{ featured.title }}</h2>
+      <p>{{ featured.excerpt | strip_html | truncate: 140 }}</p>
+      <div class="post-meta">
+        <span>{{ featured.date | date: "%B %-d, %Y" }}</span>
+        <span class="meta-dot">·</span>
+        <span>{{ featured.content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
+      </div>
+    </div>
+  </a>
+
+  <div class="post-grid">
+    {% for post in site.posts offset: 1 %}
+      <a href="{{ post.url | relative_url }}" class="post-card">
+        {% if post.tags.size > 0 %}
+          <span class="tag tag-{{ post.tags[0] | downcase | replace: ' ', '-' }}">{{ post.tags[0] }}</span>
+        {% endif %}
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.excerpt | strip_html | truncate: 100 }}</p>
+        <div class="post-meta">
+          <span>{{ post.date | date: "%B %-d, %Y" }}</span>
+          <span class="meta-dot">·</span>
+          <span>{{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+
+{% else %}
+  <div class="empty-state">
+    <p>No posts yet — add your first post to <code>_posts/</code>.</p>
+  </div>
+{% endif %}
+
+{% assign all_tags = site.posts | map: 'tags' | join: ',' | split: ',' | uniq | sort %}
+{% if all_tags.size > 0 %}
+  <p class="section-label">Browse by topic</p>
+  <div class="topics">
+    {% for tag in all_tags %}
+      <a href="#" class="topic-pill">{{ tag }}</a>
+    {% endfor %}
+  </div>
+{% endif %}

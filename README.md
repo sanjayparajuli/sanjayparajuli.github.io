@@ -1,1 +1,0 @@
-# sanjayparajuli.github.io
